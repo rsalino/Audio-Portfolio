@@ -40,7 +40,6 @@ int main(int argc, char * argv[])
     sample_count = (int)(duration * samplerate);
     angleincr = (twopi * freq) / samplerate;
     step = duration / sample_count;
-    //factor_sqr = pow(end/start,sample_count);
 
     if(strcmp(argv[6],envtype[0]) == 0)
     {

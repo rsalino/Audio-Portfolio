@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <sndfile.h>   // include this!
+#include <sndfile.h>  //THIS IS FROM libsndfile
 
 #define NFRAMES (1024)  // block size: number of frames per block
 
@@ -67,32 +67,13 @@ int main (int argc, char * argv [])
         return 1;
     }
     
-    /*
-     struct SF_INFO
-     {
-     sf_count_t    frames ;
-     int            samplerate ;
-     int            channels ;
-     int            format ;
-     int            sections ;
-     int            seekable ;
-     } ;
-     */
+ 
     printf("sample rate = %d\n", sfinfo.samplerate);
     printf("number of channels = %d\n", sfinfo.channels);
-    /*
-     printf("infile format = %#08x\n", sfinfo.format);
-     printf("sections = %d\n", sfinfo.sections);
-     printf("seekable = %d\n", sfinfo.seekable);
-     */
     
     printf("Input file info:\n");
     print_sfinfo(&sfinfo); // print input file format information
-    
-    /*
-     dynamic memory allocation for a block of samples
-     no. of samples = (no. frames) * (no. channels)
-     */
+
     nsamples = sfinfo.channels * NFRAMES; // no. of samples per block
     buffer = (float *)malloc(nsamples * sizeof(float)); // used to save a block of samples
     
@@ -101,23 +82,11 @@ int main (int argc, char * argv [])
         printf("The outfile extension is not .wav, .aif, or .aiff\n");
         return 1;
     }
-    
-    // update sfinfo for the output file
-    // complete file format = major type format | subtype format (use bitwise OR operator)
-    //sfinfo.format = outfile_major_type | SF_FORMAT_FLOAT; // complete output file format (SF_FORMAT_FLOAT)
-    
-    /* Return TRUE if fields of the SF_INFO struct are a valid combination of values.
-     int  sf_format_check (const SF_INFO *info) ;
-     We can use it to make sure sfinfo is valid before we open a file for writing. */
+
     memset(&sfinfo, 0, sizeof (sfinfo));  // clear sfinfo
 
        if ((infile = sf_open (infilename, SFM_READ, &sfinfo)) == NULL)
        {    printf ("Not able to open input file %s.\n", infilename) ;
-           /*
-            sf_strerror () returns to the caller a pointer to the current error message for
-            ** the given SNDFILE.
-             const char* sf_strerror (SNDFILE *sndfile) ;
-           */
            puts (sf_strerror (NULL)) ;
            return 1 ;
        } ;
@@ -140,17 +109,9 @@ int main (int argc, char * argv [])
     };
     printf("Output file info:\n");
     print_sfinfo(&sfinfo); // print output file format information
-    /*
-     typedef __int64  sf_count_t ;
-     sf_count_t sf_read_float (SNDFILE *sndfile, float *ptr, sf_count_t items) ;
-     
-     sf_count_t  sf_write_float  (SNDFILE *sndfile, float *ptr, sf_count_t items) ;
-     // items are number of samples = (number of frames) * (number of channels)
-     */
     
     while ((readcount = sf_read_float(infile, buffer, nsamples)))
     {
-        // processing here....
         //channel 1(buffer[i]) <-> channel 4(buffer[i+3]); channel 2(buffer[i+1] <-> channel 3(buffer[i+2])
         for(i = 0; i < readcount; i += 4) //temp swap the channels:
         {

@@ -1,15 +1,15 @@
 //
-//  Band_Pass_Header.h
+//  biquad.h
 //  
 //
 //  Created by Rob Salino on 10/21/19.
 //
 
-#ifndef Band_Pass_Header_h
-#define Band_Pass_Header_h
+#ifndef biquad_h
+#define biquad_h
 
 
-#endif /* Band_Pass_Header_h */
+#endif /* biquad_h */
 
 
 #include <stdlib.h>

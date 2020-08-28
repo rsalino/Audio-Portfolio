@@ -1,12 +1,6 @@
 # Audio-Portfolio
 Various audio-related programs
 
-## port7.c
-Uses port audio and libsndfile to enable real-time recording in a basic command-line program
-Must have libsndfile and PortAudio installed before use
-Compile: cc -o portrecord Port_Record.c -lsndfile -lportaudio
-Run: ./portrecord outfilename.wav (must supply with output file name for recording)
-
 ## 4_Channel_Swapping.c
 Enables the user to split multi-channel audio files into separate mono files
 Compile: gcc -o downmixing downmixing.c -lsndfile

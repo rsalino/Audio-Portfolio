@@ -3,6 +3,7 @@
 // IF CAPTURING SYSTEM AUDIO ON MAC OS, RECOMMEND USING SOUNDFLOWER:
 // https://github.com/mattingalls/Soundflower
 // Created by Rob Salino on 12/7/19
+// Some portions are from helloring.c in The Audio Programming Book
 // by Richard Boulanger and Victor Lazzarini, ISBN: 978-0-262-01446-5
 //
 // run with: cc -o portrecord Port_Record.c -lsndfile -lportaudio
